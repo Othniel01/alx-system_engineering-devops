@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1Ap | grep -v "^103-commas$" | awk 'BEGIN {printf("./, ../, ")} {if (substr($0, length($0)) == "/") printf("%s/,",$0); else printf("%s,",$0)} END {print ""}' >> 103-commas
+ls -Ap | grep -E "^(\.|[[:alnum:]])" | sort -n | awk "BEGIN{ORS=\",\"} {print (\$0 ~ /\\//) ? \$0 : \$0 \",\"} END{print \"\"}"
