@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "./, ../, 103-commas, "; ls -1Ap | grep -v "^103-commas$" | awk "{if (substr(\$0, length(\$0)) == \"/\") printf(\"%s, \", \$0); else printf(\"%s, \", \$0)}"
+ls -Ap | awk "BEGIN{ORS=\",\"} {if (\$0 ~ /\\/$/) printf \"%s/,\", \$0; else printf \"%s,\", \$0} END{print \"\"}" | sort -d -k1 | awk "{if (\$0 ~ /^(\\.\\.?|[^.].*)\//) printf \"%s,\", \$0; else printf \"%s\", \$0}"
